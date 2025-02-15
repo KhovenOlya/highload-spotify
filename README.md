@@ -42,4 +42,4 @@
 
 ## Список источников  
 - [Статистика Spotify](https://thesocialshepherd.com/blog/spotify-statistics)  
-- [Трафик](https://www.similarweb.com/ru/website/spotify.com/#geography)  
+- [Трафик](https://www.similarweb.com/ru/website/spotify.com/)  
