@@ -44,3 +44,4 @@
 ## Список источников  
 - [Статистика Spotify](https://thesocialshepherd.com/blog/spotify-statistics)  
 - [Трафик](https://www.similarweb.com/ru/website/spotify.com/)  
+- [Статистика треков](https://habr.com/ru/articles/375365/)
