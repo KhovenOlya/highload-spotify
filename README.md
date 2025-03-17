@@ -290,12 +290,12 @@
 | Поле              | Тип данных       | Размер (байт) |
 |------------------|-----------------|--------------|
 | `user_id`        | `uuid`           | 16           |
-| `username`       | `text`           | 50 (оценка)  |
+| `username`       | `text`           | 50   |
 | `login`          | `varchar(20)`    | 21           |
 | `password`       | `varchar(25)`    | 26           |
 | `avatar_url`     | `varchar(100)`   | 101          |
 | `birth_date`     | `date`           | 4            |
-| `country`        | `text`           | 20 (оценка)  |
+| `country`        | `text`           | 20           |
 | `subscription_id`| `uuid`           | 16           |
 | `created_at`     | `timestamp`      | 8            |
 
@@ -323,7 +323,7 @@
 | `artist_id`  | `uuid`           | 16           |
 | `username`   | `varchar(15)`    | 16           |
 | `avatar_url` | `varchar(100)`   | 101          |
-| `genre`      | `text`           | 50 (оценка)  |
+| `genre`      | `text`           | 50           |
 
 Итого: 183 байта. 
 
