@@ -435,13 +435,13 @@
 
 | Таблица        | СУБД       
 |-------------------|-----------------|
-| `User`            | PostgreSQL      |
-| `Tracks`          | PostgreSQL      |
-| `Artist`          | PostgreSQL      |
-| `Album`           | PostgreSQL      |
+| `User`            | Cassandra      |
+| `Tracks`          | Cassandra       |
+| `Artist`          | Cassandra       |
+| `Album`           | Cassandra       |
 | `Playlist`        | PostgreSQL      |
 | `Playlist_tracks` | PostgreSQL      |
-| `Listening_history`|PostgreSQL      |
+| `Listening_history`|Cassandra      |
 | `Subscription_User`|PostgreSQL      |
 | `Session`          | Redis          |
 
@@ -455,12 +455,12 @@
 - `Album`: title, artist_id
 - `Playlist`: title, user_id
 
-Тип индексации выберем B-TREE, т.к он покрывает поиск, сортировку и фильтрацию.
 
 **Денормализация**
-
 Для ускорения поиска в БД мы можем убрать join'ы: добавить в таблицу `Album` поле username_artist, в таблицу `Tracks` так же добавить username_artist. 
 Для поиска плейлиста пользователя можно добавить в `Playlist` username_user. 
+
+Для того, чтобы основной БД была Cassandra, то нам нужно убрать все внешние ключи и таблицы для связи М-М.
 
 **Шардирование**
 
@@ -472,7 +472,7 @@
 
 **Реплицирование**
 
-`PostgreSQL`: 1 ведущий узел и 3 ведомых узла (1 master, 3 slaves)
+`PostgreSQL`: 1 ведущий узел и 3 ведомых узла (1 master, 3 slaves). В Cassanr'е все узлы равны. 
 
 **Балансировка запросов / мультиплексирование подключений**
 
