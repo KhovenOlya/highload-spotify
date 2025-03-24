@@ -439,10 +439,9 @@
 | `Tracks`          | Cassandra       |
 | `Artist`          | Cassandra       |
 | `Album`           | Cassandra       |
-| `Playlist`        | PostgreSQL      |
-| `Playlist_tracks` | PostgreSQL      |
+| `Playlist`        | Cassandra      |
 | `Listening_history`|Cassandra      |
-| `Subscription_User`|PostgreSQL      |
+| `Subscription`     |PostgreSQL      |
 | `Session`          | Redis          |
 
 Так как PostgreSQL не выдерживает большие объемы данных: треки, обложки и аватарки будут хранится в хранилище S3, а в таблице будут хранится только мета-данные. 
