@@ -441,13 +441,42 @@
 | `Album`           | PostgreSQL      |
 | `Playlist`        | PostgreSQL      |
 | `Playlist_tracks` | PostgreSQL      |
-| `Listening_history`|ClickHouse      |
+| `Listening_history`|PostgreSQL      |
 | `Subscription_User`|PostgreSQL      |
 | `Session`          | Redis          |
 
-Треки, обложки и аватарки будут хранится в хранилище S3, а в таблице будут хранится только мета-данные. `Listening_history` будем использовать ClickHouse т.к эта БД отлично подходит для аналитических данных. 
+Так как PostgreSQL не выдерживает большие объемы данных, треки, обложки и аватарки будут хранится в хранилище S3, а в таблице будут хранится только мета-данные. 
 
+**Индексы**:
 
+- `User`: username
+- `Tracks`: title, artist_id
+- `Artist`: title
+- `Album`: title, artist_id
+- `Playlist`: title, user_id
+
+Тип индексации выберем B-TREE.
+
+**Денормализация**
+
+Для ускорения поиска в БД мы можем убрать join'ы: добавить в таблицу `Album` поле username_artist, в таблицу `Tracks` так же добавить username_artist. 
+Для поиска плейлиста пользователя можно добавить в `Playlist` username_user. 
+
+**Шардирование**
+
+Таблицу `User` можно шардировать по полю `user_id`, будем относительно равномерно распределять по шардам. `Tracks` по полю `track_id`. `Artist` по полю `artist_id`  
+
+**Партицирование**
+
+Партицировать будем таблицу `Listening_history` по полю `start_listen`, таблицу `Session`  по полю `started_date`.
+
+**Реплицирование**
+
+`PostgreSQL`: 1 ведущий узел и 3 ведомых узла (1 master, 3 slaves)
+
+**Балансировка запросов / мультиплексирование подключений**
+
+В системе с 1 master и 3 репликами, запросы SELECT направляются на реплики, а INSERT/UPDATE/DELETE – на мастер. Это позволяет обслуживать больше запросов и снижает нагрузку на мастер.
  
 ##  Список источников  
 
